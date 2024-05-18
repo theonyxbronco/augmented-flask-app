@@ -5,6 +5,8 @@ from psycopg2 import errors
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 app = Flask(__name__)
 
 stripe.api_key = os.getenv('STRIPE_API_KEY')
@@ -64,4 +66,4 @@ def save_customer_to_db(customer_id, name, phone, email):
 
 
 if __name__ == '__main__':
-    app.run(ssl_context='adhoc')  # Port number can be anything you choose
+    app.run(port='4242')  # Port number can be anything you choose
