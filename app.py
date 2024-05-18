@@ -5,7 +5,9 @@ from psycopg2 import errors
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+if os.environ.get('FLASK_ENV') == 'development':
+    from dotenv import load_dotenv
+    load_dotenv()  # Load environment variables from .env file in development only
 
 app = Flask(__name__)
 
