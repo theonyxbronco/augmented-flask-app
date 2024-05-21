@@ -68,4 +68,4 @@ def save_customer_to_db(customer_id, name, phone, email):
 
 
 if __name__ == '__main__':
-    app.run(port='4242')  # Port number can be anything you choose
+    app.run()  # Port number can be anything you choose
