@@ -21,9 +21,6 @@ def stripe_webhook():
     payload = request.data.decode("utf-8")
     sig_header = request.headers.get('Stripe-Signature')
 
-    # Endpoint's secret from Stripe Dashboard's webhook settings
-    endpoint_secret = ''
-
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
