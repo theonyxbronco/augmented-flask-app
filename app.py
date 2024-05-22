@@ -57,10 +57,6 @@ def stripe_webhook():
         # Invalid payload
         print("Invalid payload")
         abort(400)
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        print("Invalid signature")
-        abort(400)
 
     # Handle the event
     if event['type'] == 'customer.created':
@@ -86,6 +82,18 @@ def save_customer_to_db(customer_id, name, phone, email):
         db.session.rollback()  # Roll back the transaction on error
         print(f"An error occurred: {e}")
         return False
+    
+
+@app.route('/test-insert')
+def test_insert():
+    try:
+        subscriber = Subscriber(customer_id="123", name="Test User", phone="1234567890", email="test@example.com")
+        db.session.add(subscriber)
+        db.session.commit()
+        return "Insert successful", 200
+    except Exception as e:
+        db.session.rollback()
+        return str(e), 500
 
 
 if __name__ == '__main__':
