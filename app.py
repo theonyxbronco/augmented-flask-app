@@ -31,6 +31,7 @@ db = SQLAlchemy(app)
 
 # Model definition
 class Subscriber(db.Model):
+    __tablename__ = 'subscribers'
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.String(255), unique=True, nullable=False)
     name = db.Column(db.String(255), nullable=False)
@@ -93,6 +94,8 @@ def test_insert():
         return "Insert successful", 200
     except Exception as e:
         db.session.rollback()
+        traceback_details = traceback.format_exc()
+        app.logger.error(f"Failed to insert subscriber: {e}\nDetails: {traceback_details}")
         return str(e), 500
 
 
